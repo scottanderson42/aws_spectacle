@@ -54,6 +54,11 @@ This is Drinking The Kool-Aid pushed (almost) as far as possible.
 - [Twelve Factor App](https://12factor.net/) guidelines should be followed whenever possible.
 - Whenever possible, architect such that unneeded functionality, such as cross-region
   operation, is a matter of configuration and not a requirement.
+- When more than one AWS service is available for a particular reference architecture (eg. ECS
+  vs. Kubernetes or CloudSearch vs. ElasticSearch) use the most up-to-date and well supported
+  service. If both meet this criteria, use the most native to AWS. For these two examples we
+  would choose ECS because Kubernetes is an outside product managed by Amazon, and
+  ElasticSearch because CloudSearch has not been actively improved by Amazon for several years.
 
 ### But What About CodeCommit?
 
@@ -67,6 +72,78 @@ IAM/Cognito. For now, this is out of scope for this project.
 GitHub is easier to configure and has better tools than CodeCommit, at least for now. Of
 course, that's the case with almost every AWS product when compared with 3rd party
 offerings. Except, GitHub is _just so good_...
+
+## Services Being Used
+
+We cannot possibly use everything that Amazon provides. Several services compete against each
+other for one thing, others are very special purpose, and even more are simply outside the
+scope of what we're trying to demonstrate.
+
+### Security
+IAM - identity and authorization
+Cognito - user login management and SSO
+Certificate Manager - SSL certificate management
+Secrets Manager - application secrets
+Parameter Store - application configuration
+WAF - firewall
+more TBD
+
+### Networking
+VPC - basic network segmentation
+Route 53 - DNS
+Cloud Map - microservice registry
+CloudFront - CDN
+
+### Compute Services
+EC2 - long-running compute services
+Lambda - serverless functions
+Lambda@Edge - local Lambda placement via CloudFront
+Fargate - managed container usage for micro services
+
+### Persistence Services
+S3 - large object storage
+DynamoDB - data persistence
+Aurora Serverless - data persistence
+RDS Proxy - database connections for serverless workers
+Elasticache - caching
+
+### API Endpoint Services
+API Gateway - serverless REST and HTTP endpoints
+AppSync - serverless GraphQL endpoints
+
+### Messaging Services
+SNS - notification service
+SQS - message queuing service
+
+### Orchestration
+Step Functions - workflow automation
+ECS - container management
+Batch - batch job orchestration
+AppMesh - microservice orchestration
+
+### Analytics
+Amazon Redshift - data warehousing
+Elasticsearch - full-text search
+AWS Glue - ETL
+
+### Devops
+CloudFormation - infrastructure orchestration
+CodeBuild - automated build and test
+CodeDeploy - automated deployment
+CodePipeline - continuous delivery orchestration
+CodeArtifact - code artifact management
+CloudWatch - logging and monitoring
+... more TBD
+
+### AI/Machine Learning
+TBD
+
+## The Application
+
+Since it can be difficult to understand the use and usefulness of services with toy examples,
+we will build a working demonstration application.
+
+Current planned application: the most over-built forum software the world has ever seen
 
 ## Why "Spectacle"?
 
